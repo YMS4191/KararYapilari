@@ -31,8 +31,30 @@ namespace KararYapilari
 
         private void btnGirisYap_Click(object sender, EventArgs e)
         {
-
-            lblRastgeleKarakterler.Text = rnd.Next(10000000, 100000000).ToString();
+            if (lblRastgeleKarakterler.Text == txtMetinGirisAlani.Text)
+            {
+                MessageBox.Show("Tebrikler giriş yaptınız!");
+                lblRastgeleKarakterler.Text = "* * *";
+                txtMetinGirisAlani.Text = "";
+                txtMetinGirisAlani.Enabled = false;
+                btnGirisYap.Enabled = false;
+                lblKalanHakkimiz.Text = "5";
+            }
+            else
+            {
+                lblRastgeleKarakterler.Text = rnd.Next(10000000, 100000000).ToString();
+                txtMetinGirisAlani.Clear();
+                txtMetinGirisAlani.Focus();
+                lblKalanHakkimiz.Text = (int.Parse(lblKalanHakkimiz.Text) - 1).ToString();
+                if (lblKalanHakkimiz.Text == "0")
+                {
+                    lblRastgeleKarakterler.Text = "* * *";
+                    txtMetinGirisAlani.Text = null;
+                    txtMetinGirisAlani.Enabled = false;
+                    btnGirisYap.Enabled = false;
+                    lblKalanHakkimiz.Text = "5";
+                }
+            }
         }
     }
 }

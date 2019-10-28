@@ -137,6 +137,64 @@ namespace KararYapilari
             // Toplam tutar            : 500 TL
             // Yapılan indirim oranı   : %25
             // Ödemeniz gereken tutar  : 375 TL
+
+            //try
+            //{
+            //    int siparis_sayisi = int.Parse(txtGelenDeger1.Text);
+            //}
+            //catch
+            //{
+            //    MessageBox.Show("Lütfen sayısal olarak değer giriniz!");
+            //    MessageBox.Show("Sayıları bilmiyorsanız ailenizden destek isteyiniz!");
+            //} 
+
+            int gelen_siparis_sayisi;
+            bool result = int.TryParse(txtGelenDeger1.Text, out gelen_siparis_sayisi);
+            byte birim_fiyat = 5;
+            double odenecek_tutar = 0;
+            string indirim_orani = "";
+            if (result && gelen_siparis_sayisi > 0)
+            {
+                if (gelen_siparis_sayisi <= 20)
+                {
+                    odenecek_tutar = (birim_fiyat * gelen_siparis_sayisi) * 0.95;
+                    indirim_orani = "%5";
+                }
+                else if (gelen_siparis_sayisi <= 50)
+                {
+                    odenecek_tutar = (birim_fiyat * gelen_siparis_sayisi) * 0.90;
+                    indirim_orani = "%10";
+                }
+                else if (gelen_siparis_sayisi <= 100)
+                {
+                    odenecek_tutar = (birim_fiyat * gelen_siparis_sayisi) * 0.85;
+                    indirim_orani = "%15";
+                }
+                else
+                {
+                    odenecek_tutar = (birim_fiyat * gelen_siparis_sayisi) * 0.75;
+                    indirim_orani = "%25";
+                }
+
+                MessageBox.Show(string.Format(
+                     @"Toplam sipariş adediniz    : {0}   
+Birim fiyatı                          : {1} 
+Toplam tutar                      : {2} TL 
+Yapılan indirim oranı         : {3} 
+Ödemeniz gereken tutar  : {4}",
+                     gelen_siparis_sayisi,
+                     birim_fiyat,
+                     (birim_fiyat * gelen_siparis_sayisi),
+                     indirim_orani,
+                     odenecek_tutar
+                     ));
+            }
+            else
+            {
+                MessageBox.Show("Lütfen sayısal ve geçerli bir sipariş sayısı giriniz!");
+                MessageBox.Show("Sayıları bilmiyorsanız ailenizden destek isteyiniz!");
+            }
         }
     }
 }
+
